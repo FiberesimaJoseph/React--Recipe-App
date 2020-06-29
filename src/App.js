@@ -14,10 +14,11 @@ useEffect( () => {
 }, []);
 
     const getRecipes = async () => {
-        const response = await fetch (`https://api.edamam.com/search?q=chicken&app_id=$App_ID&app_key=${App_KEY}`
+        const response = await fetch (`https://api.edamam.com/search?q=chicken&app_id=${App_ID}&app_key=${App_KEY}`
         );
         const data =  await response.json();
          setRecipes(data.hits);
+         console.log(data.hits);
     }
 
     return(
@@ -27,8 +28,10 @@ useEffect( () => {
                 <button className="search-button" type="submit">search</button>
                </form>
                {recipes.map(recipe => (
-                  <Recipes /> 
-               ))};
+                  <Recipes title={recipe.recipe.label} calories={recipe.recipe.calories}
+                  image={recipe.recipe.image}
+                  /> 
+               ))}
             </div>
     );
 }
